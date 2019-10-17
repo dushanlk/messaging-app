@@ -55,4 +55,4 @@
 
 * Good fault tolerate.
 
-> 2nd and 4rd point helps to have good fault tolerance.
+> 2nd and 4th point helps to have good fault tolerance.
