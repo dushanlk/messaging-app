@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.1.1 r1855137">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"></stringProp>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">true</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments" guiclass="ArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
+        <collectionProp name="Arguments.arguments"/>
+      </elementProp>
+      <stringProp name="TestPlan.user_define_classpath"></stringProp>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Thread Group" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <intProp name="LoopController.loops">-1</intProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">100</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+        <stringProp name="ThreadGroup.duration"></stringProp>
+        <stringProp name="ThreadGroup.delay"></stringProp>
+      </ThreadGroup>
+      <hashTree>
+        <PublisherSampler guiclass="JMSPublisherGui" testclass="PublisherSampler" testname="JMS Publisher" enabled="true">
+          <stringProp name="jms.jndi_properties">false</stringProp>
+          <stringProp name="jms.initial_context_factory">org.apache.activemq.jndi.ActiveMQInitialContextFactory</stringProp>
+          <stringProp name="jms.provider_url">tcp://localhost:61616</stringProp>
+          <stringProp name="jms.connection_factory">ConnectionFactory</stringProp>
+          <stringProp name="jms.topic">dynamicQueues/cart</stringProp>
+          <stringProp name="jms.expiration"></stringProp>
+          <stringProp name="jms_error_reconnect_on_codes"></stringProp>
+          <stringProp name="jms.priority"></stringProp>
+          <stringProp name="jms.security_principle"></stringProp>
+          <stringProp name="jms.security_credentials"></stringProp>
+          <stringProp name="jms.text_message">{
+	&quot;customerId&quot; : ${__Random(0,1000)},
+	&quot;productId&quot; : ${__Random(0,1000)},
+	&quot;quantity&quot; : ${__Random(0,100)}
+}</stringProp>
+          <stringProp name="jms.input_file"></stringProp>
+          <stringProp name="jms.random_path"></stringProp>
+          <stringProp name="jms.config_choice">jms_use_text</stringProp>
+          <stringProp name="jms.config_msg_type">jms_text_message</stringProp>
+          <stringProp name="jms.iterations">1</stringProp>
+          <boolProp name="jms.authenticate">false</boolProp>
+          <elementProp name="jms.jmsProperties" elementType="JMSProperties">
+            <collectionProp name="JMSProperties.properties">
+              <elementProp name="" elementType="JMSProperty">
+                <stringProp name="JMSProperty.name">_type</stringProp>
+                <stringProp name="JMSProperty.value">com.app.messaging.pojo.Message</stringProp>
+                <stringProp name="JMSProperty.type">java.lang.String</stringProp>
+              </elementProp>
+            </collectionProp>
+          </elementProp>
+        </PublisherSampler>
+        <hashTree/>
+        <SubscriberSampler guiclass="JMSSubscriberGui" testclass="SubscriberSampler" testname="JMS Subscriber" enabled="true">
+          <stringProp name="jms.jndi_properties">false</stringProp>
+          <stringProp name="jms.initial_context_factory">org.apache.activemq.jndi.ActiveMQInitialContextFactory</stringProp>
+          <stringProp name="jms.provider_url">tcp://localhost:61616</stringProp>
+          <stringProp name="jms.connection_factory">ConnectionFactory</stringProp>
+          <stringProp name="jms.topic">dynamicQueues/cart</stringProp>
+          <stringProp name="jms.security_principle"></stringProp>
+          <stringProp name="jms.security_credentials"></stringProp>
+          <boolProp name="jms.authenticate">false</boolProp>
+          <stringProp name="jms.iterations">1</stringProp>
+          <stringProp name="jms.read_response">true</stringProp>
+          <stringProp name="jms.client_choice">jms_subscriber_receive</stringProp>
+          <stringProp name="jms_error_reconnect_on_codes"></stringProp>
+        </SubscriberSampler>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
